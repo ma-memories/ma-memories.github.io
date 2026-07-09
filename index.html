@@ -215,6 +215,35 @@ button#enter-btn:hover {
     border-color: #ff0000; 
 }
 
+/* ستايل حاوي الفيديو */
+.video-container {
+    width: 100%;
+    max-width: 550px;
+    border: 1px solid #222;
+    box-shadow: 0 0 20px rgba(255, 255, 255, 0.05);
+    background: #050505;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+/* جعل الفيديو يتجاوب ويبدو كأنه جيف احترافي */
+.video-container video {
+    width: 100%;
+    height: auto;
+    display: block;
+    outline: none;
+}
+
+/* الجملة الختامية العاطفية في نهاية الموقع */
+.final-outro-text {
+    font-size: 20px;
+    color: #bdbdbd;
+    max-width: 650px;
+    margin-top: 45px;
+    line-height: 1.6;
+    letter-spacing: 1px;
+}
+
 /* نافذة تكبير الصور (Lightbox) */
 #lightbox {
     position: fixed;
@@ -248,16 +277,20 @@ button#enter-btn:hover {
 </head>
 <body>
 
+    <!-- زرار الأغنية -->
     <button id="music-toggle">🔊 Play</button>
     <audio id="bg-music" loop>
         <source src="I Wanna Be Yours(MP3_160K).mp3" type="audio/mpeg">
     </audio>
 
+    <!-- شاشة البداية -->
     <div id="intro-screen">
         <p class="qr-message" id="qr-msg">You didn't scan a tattoo.<br><br>You entered a story.</p>
         
+        <!-- 1. اللوجو -->
         <img src="447png.png" alt="MA Logo" class="logo" id="logo-img">
         
+        <!-- 2. تركيبة 2 2 4 -->
         <div class="countdown-container" id="countdown-block">
             <div class="count-box">
                 <span class="num">2</span>
@@ -273,11 +306,14 @@ button#enter-btn:hover {
             </div>
         </div>
 
+        <!-- 3. زرار تشغيل القصة -->
         <button id="enter-btn">START THE BEAUTIFUL STORY</button>
     </div>
 
+    <!-- محتوى الموقع الأساسي -->
     <div id="main-content">
         
+        <!-- CHAPTER 1 -->
         <div class="section" id="01-chapter-one">
             <h2 style="color: #ff0000;">01 — Chapter One</h2>
             <div class="roman-date">II XIV MMXXII</div>
@@ -293,6 +329,7 @@ button#enter-btn:hover {
             </div>
         </div>
         
+        <!-- CHAPTER 2 -->
         <div class="section" id="02-golden-memories">
             <h2 style="color: #ffd700;">02 — Golden memories</h2>
             <p class="sub-message">Do you know that life is nice because you are in it?</p>
@@ -306,13 +343,33 @@ button#enter-btn:hover {
             </div>
         </div>
 
+        <!-- CHAPTER 3 -->
+        <div class="section" id="03-our-story-video">
+            <h2 style="color: #fff; letter-spacing: 1px; max-width: 700px; line-height: 1.4;">03 — Your presence with me brings out the sweet inside of me</h2>
+            
+            <div class="video-container" style="margin-top: 30px;">
+                <!-- تعديل وسم الفيديو: ضفنا الكتم التلقائي والتشغيل اللانهائي لضمان الـ Autoplay الشغال 100% -->
+                <video id="story-video" loop muted playsinline poster="memory1.jpg">
+                    <source src="story-video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+
+            <p class="final-outro-text">And in the end I am without my sweet stuff I have no need and thank you 🤭🥺🙈</p>
+        </div>
+
     </div>
 
+    <!-- نافذة التكبير المخفية -->
     <div id="lightbox">
         <img id="lightbox-img" src="" alt="Zoomed View">
     </div>
 
     <script>
+        const music = document.getElementById('bg-music');
+        const musicToggle = document.getElementById('music-toggle');
+        const storyVideo = document.getElementById('story-video');
+
         // نظام الـ QR Code
         const urlParams = new URLSearchParams(window.location.search);
         if(urlParams.get('source') === 'qr') {
@@ -330,8 +387,8 @@ button#enter-btn:hover {
 
         // كود زرار START THE BEAUTIFUL STORY
         document.getElementById('enter-btn').addEventListener('click', function() {
-            document.getElementById('bg-music').play().catch(err => console.log("Music play blocked or file missing"));
-            document.getElementById('music-toggle').innerText = "🔇 Pause";
+            music.play().catch(err => console.log("Music play blocked or file missing"));
+            musicToggle.innerText = "🔇 Pause";
             
             const intro = document.getElementById('intro-screen');
             intro.style.opacity = '0';
@@ -347,8 +404,7 @@ button#enter-btn:hover {
         });
 
         // تشغيل وإيقاف الموسيقى يدوياً
-        document.getElementById('music-toggle').addEventListener('click', function() {
-            const music = document.getElementById('bg-music');
+        musicToggle.addEventListener('click', function() {
             if (music.paused) {
                 music.play();
                 this.innerText = "🔇 Pause";
@@ -357,6 +413,21 @@ button#enter-btn:hover {
                 this.innerText = "🔊 Play";
             }
         });
+
+        /* نظام تشغيل الفيديو تلقائياً فور ظهوره على الشاشة ومستمر بالتوازي مع المزيكا */
+        const videoObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    // الفيديو ظهر قدام عينه؟ شغله فوراً
+                    storyVideo.play().catch(err => console.log("Autoplay context loading:", err));
+                } else {
+                    // المستخدم سابه وطلع فوق أو نزل تحت؟ وقفه مؤقتاً عشان الأداء
+                    storyVideo.pause();
+                }
+            });
+        }, { threshold: 0.3 }); // يشتغل أول ما يظهر 30% من مساحة الفيديو على الشاشة
+
+        videoObserver.observe(storyVideo);
 
         /* كود تكبير الصور (Lightbox) */
         const galleryImages = document.querySelectorAll('.gallery-img');
