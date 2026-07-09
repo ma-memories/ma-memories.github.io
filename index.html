@@ -6,203 +6,73 @@
 <title>MA Memories</title>
 
 <style>
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: Arial, sans-serif;
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial, sans-serif;
 }
 
-body {
-    background: #000;
-    color: #fff;
-    /* منع السحب في البداية قبل الضغط على Enter */
-    overflow: hidden; 
+body{
+    background:#000;
+    color:#fff;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    height:100vh;
+    text-align:center;
 }
 
-/* شاشة البداية اللي فيها تصميمك */
-#intro-screen {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    text-align: center;
-    width: 100%;
-    padding: 20px;
-    transition: opacity 1.5s ease-in-out;
-    position: relative;
-    z-index: 10;
+.container{
+    width:100%;
+    padding:20px;
 }
 
-.logo {
-    width: 220px;
-    max-width: 80%;
-    margin-bottom: 30px;
-    transition: opacity 2s;
+.logo{
+    width:220px;
+    max-width:80%;
+    margin-bottom:30px;
 }
 
-p.intro-text {
-    font-size: 24px;
-    color: #bdbdbd;
-    margin-bottom: 40px;
-    transition: opacity 2s;
+p{
+    font-size:24px;
+    color:#bdbdbd;
+    margin-bottom:40px;
 }
 
-.red {
-    color: #ff0000;
+.red{
+    color:#ff0000;
 }
 
-button#enter-btn {
-    background: #fff;
-    color: #000;
-    border: none;
-    padding: 18px 60px;
-    border-radius: 50px;
-    font-size: 24px;
-    cursor: pointer;
-    transition: 0.3s;
+button{
+    background:#fff;
+    color:#000;
+    border:none;
+    padding:18px 60px;
+    border-radius:50px;
+    font-size:24px;
+    cursor:pointer;
+    transition:0.3s;
 }
 
-button#enter-btn:hover {
-    background: #ff0000;
-    color: #fff;
-}
-
-/* رسالة الـ QR السينمائية */
-.qr-message {
-    font-size: 24px;
-    letter-spacing: 2px;
-    color: #bdbdbd;
-    position: absolute;
-    opacity: 0;
-    display: none;
-    animation: fadeInOut 5s forwards;
-}
-
-@keyframes fadeInOut {
-    0% { opacity: 0; }
-    20% { opacity: 1; }
-    80% { opacity: 1; }
-    100% { opacity: 0; }
-}
-
-/* زر الموسيقى */
-#music-toggle {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    background: transparent;
-    color: #fff;
-    border: 1px solid #333;
-    padding: 5px 15px;
-    border-radius: 20px;
-    cursor: pointer;
-    z-index: 100;
-    opacity: 0.5;
-    transition: 0.3s;
-}
-
-#music-toggle:hover {
-    opacity: 1;
-}
-
-/* محتوى الموقع الأساسي (مخفي في البداية) */
-#main-content {
-    display: none;
-    padding: 50px 20px;
-    max-width: 800px;
-    margin: 0 auto;
-}
-
-.section {
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    border-bottom: 1px solid #222;
+button:hover{
+    background:#ff0000;
+    color:#fff;
 }
 </style>
 
 </head>
 <body>
 
-    <button id="music-toggle">🔊 Play</button>
-    <audio id="bg-music" loop>
-        <source src="your-music-file.mp3" type="audio/mpeg">
-    </audio>
+<div class="container">
 
-    <div id="intro-screen">
-        <p class="qr-message" id="qr-msg">You didn't scan a tattoo.<br><br>You entered a story.</p>
-        
-        <img src="447png.png" alt="MA Logo" class="logo" id="logo-img">
-        
-        <p class="intro-text" id="intro-txt">Try for yourself... and for <span class="red">me!</span></p>
-        
-        <button id="enter-btn">ENTER</button>
-    </div>
+<img src="447png.png" alt="MA Logo" class="logo">
 
-    <div id="main-content">
-        <div class="section" id="01-the-beginning">
-            <h2 style="color: #ff0000; margin-bottom: 20px;">01 — The Beginning</h2>
-            <div style="font-size: 1.5rem; letter-spacing: 4px; color: #ccc;">XVIII•VII•MMXXV</div>
-            <p style="color: #bdbdbd; margin-top: 20px; font-size: 18px;">The beginning of a new story.</p>
-        </div>
-        
-        </div>
+<p>Try for yourself... and for <span class="red">me</span>.</p>
 
-    <script>
-        // لو الرابط فيه ?source=qr
-        const urlParams = new URLSearchParams(window.location.search);
-        if(urlParams.get('source') === 'qr') {
-            const qrMsg = document.getElementById('qr-msg');
-            qrMsg.style.display = 'block';
-            
-            // إخفاء عناصرك مؤقتاً لحد ما الرسالة السينمائية تخلص
-            const elementsToHide = document.querySelectorAll('#logo-img, #intro-txt, #enter-btn');
-            elementsToHide.forEach(el => el.style.opacity = '0');
-            
-            setTimeout(() => {
-                elementsToHide.forEach(el => {
-                    el.style.opacity = '1';
-                });
-                qrMsg.style.display = 'none';
-            }, 5000); 
-        }
+<button>ENTER</button>
 
-        // تفاعل زرار ENTER
-        document.getElementById('enter-btn').addEventListener('click', function() {
-            // تشغيل الموسيقى
-            document.getElementById('bg-music').play();
-            document.getElementById('music-toggle').innerText = "🔇 Pause";
-            
-            // إخفاء شاشة البداية
-            const intro = document.getElementById('intro-screen');
-            intro.style.opacity = '0';
-            
-            setTimeout(() => {
-                intro.style.display = 'none';
-                document.body.style.overflow = 'auto'; // تشغيل السحب (Scroll)
-                
-                const mainContent = document.getElementById('main-content');
-                mainContent.style.display = 'block';
-                mainContent.animate([{opacity: 0}, {opacity: 1}], {duration: 1500, fill: 'forwards'});
-            }, 1500);
-        });
+</div>
 
-        // تشغيل وإيقاف الموسيقى
-        document.getElementById('music-toggle').addEventListener('click', function() {
-            const music = document.getElementById('bg-music');
-            if (music.paused) {
-                music.play();
-                this.innerText = "🔇 Pause";
-            } else {
-                music.pause();
-                this.innerText = "🔊 Play";
-            }
-        });
-    </script>
 </body>
 </html>
