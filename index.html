@@ -1,180 +1,44 @@
 <!DOCTYPE html>
-<html lang="en">
-
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-
+<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1">
 <title>MA Memories</title>
-
 <style>
-
-*{
-    margin:0;
-    padding:0;
-    box-sizing:border-box;
-    font-family:Arial, sans-serif;
-}
-
-html{
-    scroll-behavior:smooth;
-}
-
-body{
-    background:#000;
-    color:#fff;
-}
-
-/* الصفحة الأولى */
-
-.hero{
-    height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    text-align:center;
-    padding:20px;
-}
-
-.container{
-    width:100%;
-}
-
-.logo{
-    width:220px;
-    max-width:80%;
-    margin-bottom:30px;
-    animation:fadeUp 1.5s ease;
-}
-
-.hero p{
-    font-size:24px;
-    color:#bdbdbd;
-    margin-bottom:40px;
-    animation:fadeUp 2s ease;
-}
-
-.red{
-    color:#ff0000;
-}
-
-button{
-    background:#fff;
-    color:#000;
-    border:none;
-    padding:18px 60px;
-    border-radius:50px;
-    font-size:22px;
-    cursor:pointer;
-    transition:.3s;
-    animation:fadeUp 2.5s ease;
-}
-
-button:hover{
-    background:#ff0000;
-    color:#fff;
-}
-
-/* الأقسام */
-
-.section{
-    min-height:100vh;
-    display:flex;
-    justify-content:center;
-    align-items:center;
-    flex-direction:column;
-    text-align:center;
-    padding:40px;
-}
-
-.section h1{
-    font-size:42px;
-    margin-bottom:25px;
-}
-
-.roman{
-    font-size:30px;
-    letter-spacing:5px;
-    margin-bottom:10px;
-}
-
-.date{
-    color:#ff0000;
-    font-size:18px;
-    margin-bottom:35px;
-}
-
-.story{
-    max-width:700px;
-    color:#bdbdbd;
-    font-size:20px;
-    line-height:1.8;
-}
-
-/* الأنيميشن */
-
-@keyframes fadeUp{
-
-from{
-opacity:0;
-transform:translateY(40px);
-}
-
-to{
-opacity:1;
-transform:translateY(0);
-}
-
-}
-
-</style>
-
-</head>
-
-<body>
-
-<!-- الصفحة الرئيسية -->
-
-<section class="hero">
-
-<div class="container">
-
-<img src="447png.png" class="logo">
-
-<p>
-Try for yourself... and for
-<span class="red">me</span>.
-</p>
-
-<button onclick="document.getElementById('beginning').scrollIntoView();">
-ENTER
-</button>
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif}
+html{scroll-behavior:smooth}body{background:#000;color:#fff}
+#rotate{position:fixed;inset:0;background:#000;display:none;z-index:9999;justify-content:center;align-items:center;flex-direction:column;text-align:center;padding:30px}
+.phone{font-size:70px;animation:rot 1.6s infinite ease-in-out}
+#rotate h2{margin:20px 0 10px;font-size:26px}
+#rotate p{color:#bbb;max-width:360px;line-height:1.6}
+@keyframes rot{0%,100%{transform:rotate(0)}50%{transform:rotate(90deg)}}
+.hero,.section{min-height:100vh;display:flex;justify-content:center;align-items:center;flex-direction:column;text-align:center;padding:20px}
+.logo{width:220px;max-width:80%;margin-bottom:30px}
+.code{display:flex;gap:60px;margin:20px 0 40px}.item h2{font-size:42px}.item p{color:#f00}
+button{padding:18px 40px;border:none;border-radius:50px;font-size:20px;cursor:pointer}
+.roman{white-space:nowrap;width:100%;font-size:22px;letter-spacing:2px;margin:15px 0}
+.date{color:#f00;margin-bottom:25px}.story{color:#bbb;line-height:1.8}
+</style></head><body>
+<div id="rotate">
+<div class="phone">📱</div>
+<h2>Rotate Your Device</h2>
+<p>This story is meant to be experienced in landscape.<br>Please rotate your device.</p>
 </div>
-
+<section class="hero">
+<img src="447png.png" class="logo">
+<div class="code">
+<div class="item"><h2>2</h2><p>Today</p></div>
+<div class="item"><h2>2</h2><p>Tomorrow</p></div>
+<div class="item"><h2>4</h2><p>Forever</p></div>
+</div>
+<button onclick="document.getElementById('c1').scrollIntoView({behavior:'smooth'})">Start the Beautiful Story</button>
 </section>
-
-<!-- البداية -->
-
-<section id="beginning" class="section">
-
-<h1>01 — The Beginning</h1>
-
-<h2 class="roman">
-II • XIV • MMXXII
-</h2>
-
-<p class="date">
-2 / 14 / 2022
-</p>
-
-<p class="story">
-Every story has a beginning.
-Mine started the moment everything changed.
-</p>
-
+<section id="c1" class="section">
+<h1>01 — The First Chapter</h1>
+<div class="roman">II • XIV • MMXXII</div>
+<div class="date">2 / 14 / 2022</div>
+<div class="story">This wasn't the day my story began.<br>It was the day I was reborn.</div>
 </section>
-
-</body>
-
-</html> 
+<script>
+function check(){document.getElementById('rotate').style.display=
+window.innerWidth<window.innerHeight?'flex':'none';}
+check();window.addEventListener('resize',check);
+</script>
+</body></html>
