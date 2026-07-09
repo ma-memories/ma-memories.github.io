@@ -33,7 +33,7 @@ body {
     z-index: 10;
     transition: opacity 1.5s ease-in-out;
     
-    /* استدعاء إنميشن التفتح البطيء هنا (بياخد 3.5 ثانية) */
+    /* استدعاء إنميشن التفتح البطيء هنا */
     animation: bloomIn 3.5s ease-out forwards;
 }
 
@@ -226,7 +226,6 @@ button#enter-btn:hover {
     overflow: hidden;
 }
 
-/* جعل الفيديو يتجاوب ويبدو كأنه جيف احترافي */
 .video-container video {
     width: 100%;
     height: auto;
@@ -234,14 +233,45 @@ button#enter-btn:hover {
     outline: none;
 }
 
-/* الجملة الختامية العاطفية في نهاية الموقع */
+/* ستايل الجملة الختامية القوية مع تحضير الإنميشن المخصوص */
 .final-outro-text {
-    font-size: 20px;
-    color: #bdbdbd;
+    font-size: 22px;
+    color: #fff;
     max-width: 650px;
-    margin-top: 45px;
+    margin-top: 50px;
     line-height: 1.6;
     letter-spacing: 1px;
+    opacity: 0;
+    transform: translateY(30px);
+    filter: blur(10px);
+    transition: all 1.8s ease;
+}
+
+/* كلاس الإنميشن الملفت الذكي الذي سيتم تفعيله برمجياً عند وصول عينه للمقولة */
+.final-outro-text.animate-text {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+    animation: cinematicGlow 3s forwards ease-in-out;
+}
+
+/* كود نبضة التوهج الأحمر السينمائي للمقولة الختامية */
+@keyframes cinematicGlow {
+    0% {
+        text-shadow: 0 0 0px rgba(255, 0, 0, 0);
+    }
+    40% {
+        text-shadow: 0 0 20px rgba(255, 0, 0, 0.8), 0 0 30px rgba(255, 0, 0, 0.6);
+        color: #ff3333;
+    }
+    70% {
+        text-shadow: 0 0 10px rgba(255, 0, 0, 0.4);
+        color: #fff;
+    }
+    100% {
+        text-shadow: 0 0 12px rgba(255, 0, 0, 0.5);
+        color: #fff;
+    }
 }
 
 /* نافذة تكبير الصور (Lightbox) */
@@ -277,20 +307,16 @@ button#enter-btn:hover {
 </head>
 <body>
 
-    <!-- زرار الأغنية -->
     <button id="music-toggle">🔊 Play</button>
     <audio id="bg-music" loop>
         <source src="I Wanna Be Yours(MP3_160K).mp3" type="audio/mpeg">
     </audio>
 
-    <!-- شاشة البداية -->
     <div id="intro-screen">
         <p class="qr-message" id="qr-msg">You didn't scan a tattoo.<br><br>You entered a story.</p>
         
-        <!-- 1. اللوجو -->
         <img src="447png.png" alt="MA Logo" class="logo" id="logo-img">
         
-        <!-- 2. تركيبة 2 2 4 -->
         <div class="countdown-container" id="countdown-block">
             <div class="count-box">
                 <span class="num">2</span>
@@ -306,14 +332,11 @@ button#enter-btn:hover {
             </div>
         </div>
 
-        <!-- 3. زرار تشغيل القصة -->
         <button id="enter-btn">START THE BEAUTIFUL STORY</button>
     </div>
 
-    <!-- محتوى الموقع الأساسي -->
     <div id="main-content">
         
-        <!-- CHAPTER 1 -->
         <div class="section" id="01-chapter-one">
             <h2 style="color: #ff0000;">01 — Chapter One</h2>
             <div class="roman-date">II XIV MMXXII</div>
@@ -329,10 +352,9 @@ button#enter-btn:hover {
             </div>
         </div>
         
-        <!-- CHAPTER 2 -->
         <div class="section" id="02-golden-memories">
             <h2 style="color: #ffd700;">02 — Golden memories</h2>
-            <p class="sub-message">Do you know that life is nice because you are in it?</p>
+            <p class="sub-message">Do you know that life has been more beautiful since you were born? 🤨🫣</p>
             
             <div class="image-gallery">
                 <img src="memory1.jpg" alt="Memory 1" class="gallery-img">
@@ -343,24 +365,23 @@ button#enter-btn:hover {
             </div>
         </div>
 
-        <!-- CHAPTER 3 -->
         <div class="section" id="03-our-story-video">
             <h2 style="color: #fff; letter-spacing: 1px; max-width: 700px; line-height: 1.4;">03 — Your presence with me brings out the sweet inside of me</h2>
             
             <div class="video-container" style="margin-top: 30px;">
-                <!-- تعديل وسم الفيديو: ضفنا الكتم التلقائي والتشغيل اللانهائي لضمان الـ Autoplay الشغال 100% -->
                 <video id="story-video" loop muted playsinline poster="memory1.jpg">
                     <source src="story-video.mp4" type="video/mp4">
                     Your browser does not support the video tag.
                 </video>
             </div>
 
-            <p class="final-outro-text">And in the end I am without my sweet stuff I have no need and thank you 🤭🥺🙈</p>
+            <p class="final-outro-text" id="final-text">
+                And in the end, my sweet stuff and I will always stay together. So who are you, maidens, to think you could ever take my princess's place? 😍😉😎
+            </p>
         </div>
 
     </div>
 
-    <!-- نافذة التكبير المخفية -->
     <div id="lightbox">
         <img id="lightbox-img" src="" alt="Zoomed View">
     </div>
@@ -369,6 +390,7 @@ button#enter-btn:hover {
         const music = document.getElementById('bg-music');
         const musicToggle = document.getElementById('music-toggle');
         const storyVideo = document.getElementById('story-video');
+        const finalText = document.getElementById('final-text');
 
         // نظام الـ QR Code
         const urlParams = new URLSearchParams(window.location.search);
@@ -414,20 +436,30 @@ button#enter-btn:hover {
             }
         });
 
-        /* نظام تشغيل الفيديو تلقائياً فور ظهوره على الشاشة ومستمر بالتوازي مع المزيكا */
+        /* نظام تشغيل الفيديو تلقائياً فور ظهوره على الشاشة */
         const videoObserver = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
-                    // الفيديو ظهر قدام عينه؟ شغله فوراً
-                    storyVideo.play().catch(err => console.log("Autoplay context loading:", err));
+                    storyVideo.play().catch(err => console.log("Autoplay check:", err));
                 } else {
-                    // المستخدم سابه وطلع فوق أو نزل تحت؟ وقفه مؤقتاً عشان الأداء
                     storyVideo.pause();
                 }
             });
-        }, { threshold: 0.3 }); // يشتغل أول ما يظهر 30% من مساحة الفيديو على الشاشة
+        }, { threshold: 0.3 });
 
         videoObserver.observe(storyVideo);
+
+        /* الذكاء البرمجي لتفعيل إنميشن التوهج والظهور للمقولة الختامية عند السكرول */
+        const textObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    finalText.classList.add('animate-text');
+                    textObserver.unobserve(finalText); // يشتغل مرة واحدة باحترافية أول ما يوصل له
+                }
+            });
+        }, { threshold: 0.4 });
+
+        textObserver.observe(finalText);
 
         /* كود تكبير الصور (Lightbox) */
         const galleryImages = document.querySelectorAll('.gallery-img');
