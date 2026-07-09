@@ -3,538 +3,58 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-<title>The New Birth</title>
-
+<title>MA Memories</title>
 <style>
-
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Georgia,serif;
-}
-
-body{
-background:#000;
-color:white;
-text-align:center;
-overflow-x:hidden;
-}
-
-
-/* شاشة تدوير الهاتف */
-
-#rotate{
-position:fixed;
-inset:0;
-background:#000;
-z-index:999;
-display:flex;
-align-items:center;
-justify-content:center;
-font-size:18px;
-}
-
-
-.phone{
-width:45px;
-height:80px;
-border:3px solid white;
-border-radius:12px;
-margin:auto;
-animation:phoneRotate 2s infinite;
-}
-
-
-@keyframes phoneRotate{
-
-0%{
-transform:rotate(0deg);
-}
-
-50%{
-transform:rotate(90deg);
-}
-
-100%{
-transform:rotate(90deg);
-}
-
-}
-
-
-@media (orientation:landscape){
-
-#rotate{
-display:none;
-}
-
-}
-
-
-/* الصفحة الأولى */
-
-.container{
-
-padding:40px 20px;
-
-}
-
-
-
-.main-image{
-
-width:90%;
-max-width:550px;
-border-radius:20px;
-
-opacity:0;
-
-animation:fadeZoom 2s forwards;
-
-}
-
-
-
-@keyframes fadeZoom{
-
-from{
-
-opacity:0;
-transform:scale(.85);
-
-}
-
-to{
-
-opacity:1;
-transform:scale(1);
-
-}
-
-}
-
-
-
-
-.numbers{
-
-display:flex;
-justify-content:center;
-gap:45px;
-margin:40px 0;
-
-}
-
-
-.numbers div{
-
-opacity:0;
-
-animation:upShow 1s forwards;
-
-}
-
-
-.numbers div:nth-child(1){
-
-animation-delay:.5s;
-
-}
-
-.numbers div:nth-child(2){
-
-animation-delay:1s;
-
-}
-
-.numbers div:nth-child(3){
-
-animation-delay:1.5s;
-
-}
-
-
-
-.numbers h1{
-
-font-size:50px;
-
-}
-
-
-.numbers p{
-
-color:red;
-font-size:18px;
-
-}
-
-
-
-
-button{
-
-background:white;
-color:black;
-
-border:none;
-
-padding:18px 40px;
-
-border-radius:50px;
-
-font-size:22px;
-
-opacity:0;
-
-animation:upShow 1s forwards;
-animation-delay:2s;
-
-cursor:pointer;
-
-}
-
-
-button:hover{
-
-background:red;
-color:white;
-
-}
-
-
-
-
-@keyframes upShow{
-
-from{
-
-opacity:0;
-transform:translateY(40px);
-
-}
-
-to{
-
-opacity:1;
-transform:translateY(0);
-
-}
-
-}
-
-
-
-
-/* الشابتر */
-
-
-.hidden{
-
-display:none;
-
-}
-
-
-.chapter{
-
-padding-top:40px;
-
-animation:chapterIn 2s ease;
-
-}
-
-
-
-@keyframes chapterIn{
-
-from{
-
-opacity:0;
-transform:translateY(60px);
-
-}
-
-to{
-
-opacity:1;
-transform:translateY(0);
-
-}
-
-}
-
-
-
-.roman{
-
-font-size:45px;
-letter-spacing:5px;
-
-}
-
-
-.red{
-
-color:red;
-font-size:22px;
-
-}
-
-
-.story-text{
-
-color:#ccc;
-
-font-size:22px;
-
-line-height:1.7;
-
-margin:35px 20px;
-
-}
-
-
-.chapter-title{
-
-font-size:45px;
-
-margin:40px 0;
-
-}
-
-
-
-/* الصور */
-
-
-.story-image{
-
-width:90%;
-max-width:600px;
-
-border-radius:20px;
-
-margin:30px 0;
-
-opacity:0;
-
-transform:translateY(50px) scale(.9);
-
-transition:1.5s ease;
-
-}
-
-
-.story-image.show{
-
-opacity:1;
-
-transform:translateY(0) scale(1);
-
-}
-
-
+*{margin:0;padding:0;box-sizing:border-box;font-family:Arial,sans-serif;}
+html{scroll-behavior:smooth;}
+body{background:#000;color:#fff;}
+.hero{height:100vh;display:flex;justify-content:center;align-items:center;text-align:center;padding:20px;}
+.container{width:100%;}
+.logo{width:220px;max-width:80%;margin-bottom:30px;animation:fadeUp 1.5s ease;}
+.code{display:flex;justify-content:center;gap:60px;margin:20px 0 40px;animation:fadeUp 2s ease;}
+.item{text-align:center;}
+.item h2{font-size:42px;color:#fff;margin-bottom:8px;}
+.item p{font-size:16px;color:#ff0000;}
+button{background:#fff;color:#000;border:none;padding:18px 45px;border-radius:50px;font-size:20px;font-weight:bold;cursor:pointer;transition:.3s;animation:fadeUp 2.5s ease;}
+button:hover{background:#ff0000;color:#fff;}
+.section{min-height:100vh;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;padding:40px;}
+.section h1{font-size:42px;margin-bottom:25px;}
+.roman{font-size:30px;letter-spacing:5px;margin-bottom:10px;}
+.date{color:#ff0000;font-size:18px;margin-bottom:35px;}
+.story{max-width:700px;color:#bdbdbd;font-size:20px;line-height:1.8;}
+@keyframes fadeUp{from{opacity:0;transform:translateY(40px);}to{opacity:1;transform:translateY(0);}}
 </style>
 </head>
 <body>
 
+<section class="hero">
+<div class="container">
+<img src="447png.png" class="logo" alt="Logo">
 
-<div id="rotate">
-
-<div>
-
-<div class="phone"></div>
-
-<br>
-
-Turn the phone to enjoy the story more
-
+<div class="code">
+<div class="item"><h2>2</h2><p>Today</p></div>
+<div class="item"><h2>2</h2><p>Tomorrow</p></div>
+<div class="item"><h2>4</h2><p>Forever</p></div>
 </div>
 
-</div>
-
-
-
-<!-- الصفحة الأولى -->
-
-<div class="container" id="home">
-
-
-<img src="447png.png" class="main-image">
-
-
-
-<div class="numbers">
-
-
-<div>
-<h1>2</h1>
-<p>Today</p>
-</div>
-
-
-<div>
-<h1>2</h1>
-<p>Tomorrow</p>
-</div>
-
-
-<div>
-<h1>4</h1>
-<p>Forever</p>
-</div>
-
-
-</div>
-
-
-
-<button onclick="startStory()">
-
-Start the beautiful story
-
+<button onclick="document.getElementById('chapter1').scrollIntoView();">
+Start the Beautiful Story
 </button>
-
-
 </div>
+</section>
 
+<section id="chapter1" class="section">
+<h1>01 — The First Chapter</h1>
 
+<h2 class="roman">II • XIV • MMXXII</h2>
 
+<p class="date">2 / 14 / 2022</p>
 
-
-<!-- Chapter 1 -->
-
-<div class="container hidden" id="story">
-
-
-<div class="chapter">
-
-
-
-<div class="roman">
-
-II XIV MMXXII
-
-</div>
-
-
-<div class="red">
-
-2 14 2022
-
-</div>
-
-
-
-<p class="story-text">
-
-And on this day God gave me an angel from the angels
-
+<p class="story">
+This wasn't the day my story began.<br>
+It was the day I was reborn.
 </p>
-
-
-
-
-<h1 class="chapter-title">
-
-Chapter 1
-
-</h1>
-
-
-
-
-<img src="chapter1-1.jpg" class="story-image">
-
-<img src="chapter1-2.jpg" class="story-image">
-
-<img src="chapter1-3.jpg" class="story-image">
-
-<img src="chapter1-4.jpg" class="story-image">
-
-<img src="chapter1-5.jpg" class="story-image">
-
-
-
-</div>
-
-
-</div>
-
-
-
-
-
-
-<script>
-
-
-function startStory(){
-
-
-document.getElementById("home").style.display="none";
-
-
-let story = document.getElementById("story");
-
-
-story.classList.remove("hidden");
-
-
-
-window.scrollTo({
-
-top:0,
-
-behavior:"smooth"
-
-});
-
-
-}
-
-
-
-
-// ظهور الصور مع النزول
-
-const images = document.querySelectorAll(".story-image");
-
-
-
-window.addEventListener("scroll",()=>{
-
-
-images.forEach(img=>{
-
-
-let position = img.getBoundingClientRect().top;
-
-
-
-if(position < window.innerHeight - 100){
-
-
-img.classList.add("show");
-
-
-}
-
-
-
-});
-
-
-});
-
-
-
-</script>
-
+</section>
 
 </body>
-
 </html>
