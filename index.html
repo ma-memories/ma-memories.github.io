@@ -19,7 +19,7 @@ body {
     overflow: hidden; /* منع السحب في البداية */
 }
 
-/* شاشة البداية */
+/* شاشة البداية + إنميشن التفتح البطيء عند فتح اللينك */
 #intro-screen {
     display: flex;
     flex-direction: column;
@@ -29,36 +29,71 @@ body {
     text-align: center;
     width: 100%;
     padding: 20px;
-    transition: opacity 1.5s ease-in-out;
     position: relative;
     z-index: 10;
+    transition: opacity 1.5s ease-in-out;
+    
+    /* استدعاء إنميشن التفتح البطيء هنا (بياخد 3.5 ثانية) */
+    animation: bloomIn 3.5s ease-out forwards;
+}
+
+/* كود إنميشن التفتح البطيء السينمائي */
+@keyframes bloomIn {
+    0% {
+        opacity: 0;
+        filter: blur(10px); /* يبدأ بضباب غامض */
+        transform: scale(0.95); /* تأثير تكبير بسيط كأنه بيفتح */
+    }
+    100% {
+        opacity: 1;
+        filter: blur(0);
+        transform: scale(1);
+    }
 }
 
 .logo {
     width: 220px;
     max-width: 80%;
     margin-bottom: 30px;
-    transition: opacity 2s;
 }
 
-p.intro-text {
-    font-size: 24px;
-    color: #bdbdbd;
-    margin-bottom: 40px;
-    transition: opacity 2s;
-}
-
-.red {
+/* ستايل تركيبة 2 2 4 باللون الأحمر */
+.countdown-container {
+    display: flex;
+    gap: 35px;
     color: #ff0000;
+    margin-bottom: 40px;
+    text-align: center;
 }
 
+.count-box {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.count-box .num {
+    font-size: 54px;
+    font-weight: bold;
+    letter-spacing: 2px;
+}
+
+.count-box .label {
+    font-size: 16px;
+    margin-top: 5px;
+    letter-spacing: 1px;
+}
+
+/* زرار دخول القصة */
 button#enter-btn {
     background: #fff;
     color: #000;
     border: none;
-    padding: 18px 60px;
+    padding: 18px 45px;
     border-radius: 50px;
-    font-size: 24px;
+    font-size: 20px;
+    font-weight: bold;
+    letter-spacing: 1px;
     cursor: pointer;
     transition: 0.3s;
 }
@@ -66,6 +101,7 @@ button#enter-btn {
 button#enter-btn:hover {
     background: #ff0000;
     color: #fff;
+    box-shadow: 0 0 15px rgba(255, 0, 0, 0.4);
 }
 
 /* رسالة الـ QR المخفية */
@@ -122,14 +158,29 @@ button#enter-btn:hover {
     justify-content: center;
     align-items: center;
     text-align: center;
-    padding: 60px 0;
+    padding: 80px 0;
     border-bottom: 1px solid #111;
 }
 
 .section h2 {
-    font-size: 28px;
+    font-size: 32px;
     letter-spacing: 2px;
     margin-bottom: 15px;
+}
+
+.roman-date {
+    font-size: 24px;
+    letter-spacing: 5px;
+    color: #666;
+    margin-top: 10px;
+}
+
+.english-date {
+    font-size: 16px;
+    color: #ff0000;
+    margin-top: 5px;
+    margin-bottom: 20px;
+    letter-spacing: 2px;
 }
 
 .sub-message {
@@ -206,15 +257,31 @@ button#enter-btn:hover {
         <p class="qr-message" id="qr-msg">You didn't scan a tattoo.<br><br>You entered a story.</p>
         
         <img src="447png.png" alt="MA Logo" class="logo" id="logo-img">
-        <p class="intro-text" id="intro-txt">Try for yourself... and for <span class="red">me!</span></p>
-        <button id="enter-btn">ENTER</button>
+        
+        <div class="countdown-container" id="countdown-block">
+            <div class="count-box">
+                <span class="num">2</span>
+                <span class="label">today</span>
+            </div>
+            <div class="count-box">
+                <span class="num">2</span>
+                <span class="label">tomorrow</span>
+            </div>
+            <div class="count-box">
+                <span class="num">4</span>
+                <span class="label">forever</span>
+            </div>
+        </div>
+
+        <button id="enter-btn">START THE BEAUTIFUL STORY</button>
     </div>
 
     <div id="main-content">
         
-        <div class="section" id="01-the-beginning">
-            <h2 style="color: #ff0000;">01 — The Beginning</h2>
-            <div style="font-size: 20px; letter-spacing: 4px; color: #666; margin: 15px 0;">XVIII•VII•MMXXV</div>
+        <div class="section" id="01-chapter-one">
+            <h2 style="color: #ff0000;">01 — Chapter One</h2>
+            <div class="roman-date">II XIV MMXXII</div>
+            <div class="english-date">2 14 2022</div>
             <p class="sub-message">On this day God gave me an angel from the angels</p>
             
             <div class="image-gallery">
@@ -227,8 +294,8 @@ button#enter-btn:hover {
         </div>
         
         <div class="section" id="02-golden-memories">
-            <h2>02 — Golden memories</h2>
-            <p class="sub-message">The world is beautiful but you are the one who solves it</p>
+            <h2 style="color: #ffd700;">02 — Golden memories</h2>
+            <p class="sub-message">Do you know that life is nice because you are in it?</p>
             
             <div class="image-gallery">
                 <img src="memory1.jpg" alt="Memory 1" class="gallery-img">
@@ -252,7 +319,7 @@ button#enter-btn:hover {
             const qrMsg = document.getElementById('qr-msg');
             qrMsg.style.display = 'block';
             
-            const elementsToHide = document.querySelectorAll('#logo-img, #intro-txt, #enter-btn');
+            const elementsToHide = document.querySelectorAll('#logo-img, #countdown-block, #enter-btn');
             elementsToHide.forEach(el => el.style.opacity = '0');
             
             setTimeout(() => {
@@ -261,7 +328,7 @@ button#enter-btn:hover {
             }, 5000); 
         }
 
-        // كود زرار ENTER
+        // كود زرار START THE BEAUTIFUL STORY
         document.getElementById('enter-btn').addEventListener('click', function() {
             document.getElementById('bg-music').play().catch(err => console.log("Music play blocked or file missing"));
             document.getElementById('music-toggle').innerText = "🔇 Pause";
@@ -291,7 +358,7 @@ button#enter-btn:hover {
             }
         });
 
-        /* كود تكبير الصور (Lightbox) لجميع الصور في الموقع تلقائياً */
+        /* كود تكبير الصور (Lightbox) */
         const galleryImages = document.querySelectorAll('.gallery-img');
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
@@ -303,10 +370,9 @@ button#enter-btn:hover {
             });
         });
 
-        // قفل النافذة عند الضغط في أي مكان فاضي
         lightbox.addEventListener('click', () => {
             lightbox.classList.remove('active');
         });
     </script>
 </body>
-</html> 
+</html>
