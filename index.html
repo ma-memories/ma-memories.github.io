@@ -1,197 +1,4 @@
-
-}
-
-
-
-
-button{
-
-background:white;
-color:black;
-border:none;
-
-padding:18px 40px;
-
-border-radius:50px;
-
-font-size:22px;
-
-cursor:pointer;
-
-}
-
-
-
-button:hover{
-
-background:red;
-color:white;
-
-}
-
-
-
-/* Story */
-
-
-.hidden{
-
-display:none;
-
-}
-
-
-
-.chapter{
-
-margin-top:80px;
-
-}
-
-
-
-.roman{
-
-font-size:45px;
-letter-spacing:5px;
-
-}
-
-
-
-.red{
-
-color:red;
-
-font-size:22px;
-
-}
-
-
-
-.story-text{
-
-font-size:22px;
-color:#ccc;
-margin:35px 0;
-
-line-height:1.6;
-
-}
-
-
-
-.chapter-title{
-
-font-size:45px;
-
-margin-bottom:40px;
-
-}
-
-
-
-/* Images */
-
-
-.story-image{
-
-width:90%;
-max-width:600px;
-
-margin:25px 0;
-
-border-radius:15px;
-
-
-opacity:0;
-
-animation:imageShow 2s forwards;
-
-}
-
-
-
-.story-image:nth-child(2){
-
-animation-delay:.5s;
-
-}
-
-.story-image:nth-child(3){
-
-animation-delay:1s;
-
-}
-
-.story-image:nth-child(4){
-
-animation-delay:1.5s;
-
-}
-
-.story-image:nth-child(5){
-
-animation-delay:2s;
-
-}
-
-
-
-@keyframes imageShow{
-
-
-from{
-
-opacity:0;
-
-transform:scale(.85);
-
-}
-
-
-
-to{
-
-opacity:1;
-
-transform:scale(1);
-
-}
-
-
-}
-
-
-
-@keyframes fade{
-
-
-from{
-
-opacity:0;
-
-}
-
-
-to{
-
-opacity:1;
-
-}
-
-
-}
-
-
-</style>
-
-
-</head>
-
-
 <body>
-
 
 
 <div id="rotate">
@@ -210,9 +17,9 @@ Turn the phone to enjoy the story more
 
 
 
+<!-- الصفحة الأولى -->
 
 <div class="container" id="home">
-
 
 
 <img src="447png.png" class="main-image">
@@ -223,30 +30,20 @@ Turn the phone to enjoy the story more
 
 
 <div>
-
 <h1>2</h1>
-
 <p>Today</p>
-
 </div>
 
 
 <div>
-
 <h1>2</h1>
-
 <p>Tomorrow</p>
-
 </div>
 
 
-
 <div>
-
 <h1>4</h1>
-
 <p>Forever</p>
-
 </div>
 
 
@@ -261,16 +58,15 @@ Start the beautiful story
 </button>
 
 
-
 </div>
 
 
 
 
 
+<!-- Chapter 1 -->
 
 <div class="container hidden" id="story">
-
 
 
 <div class="chapter">
@@ -282,15 +78,13 @@ Start the beautiful story
 II XIV MMXXII
 
 </div>
-    
 
 
 <div class="red">
-    
-2 14 2022
-    
-</div>
 
+2 14 2022
+
+</div>
 
 
 
@@ -311,6 +105,7 @@ Chapter 1
 
 
 
+
 <img src="chapter1-1.jpg" class="story-image">
 
 <img src="chapter1-2.jpg" class="story-image">
@@ -324,3 +119,81 @@ Chapter 1
 
 
 </div>
+
+
+</div>
+
+
+
+
+
+
+<script>
+
+
+function startStory(){
+
+
+document.getElementById("home").style.display="none";
+
+
+let story = document.getElementById("story");
+
+
+story.classList.remove("hidden");
+
+
+
+window.scrollTo({
+
+top:0,
+
+behavior:"smooth"
+
+});
+
+
+}
+
+
+
+
+// ظهور الصور مع النزول
+
+const images = document.querySelectorAll(".story-image");
+
+
+
+window.addEventListener("scroll",()=>{
+
+
+images.forEach(img=>{
+
+
+let position = img.getBoundingClientRect().top;
+
+
+
+if(position < window.innerHeight - 100){
+
+
+img.classList.add("show");
+
+
+}
+
+
+
+});
+
+
+});
+
+
+
+</script>
+
+
+</body>
+
+</html>
