@@ -140,7 +140,7 @@ button#enter-btn:hover {
     line-height: 1.6;
 }
 
-/* معرض صور Chapter 2 */
+/* معرض صور الشباتر */
 .image-gallery {
     display: flex;
     flex-direction: column;
@@ -215,7 +215,15 @@ button#enter-btn:hover {
         <div class="section" id="01-the-beginning">
             <h2 style="color: #ff0000;">01 — The Beginning</h2>
             <div style="font-size: 20px; letter-spacing: 4px; color: #666; margin: 15px 0;">XVIII•VII•MMXXV</div>
-            <p class="sub-message">The beginning of a new story.</p>
+            <p class="sub-message">On this day God gave me an angel from the angels</p>
+            
+            <div class="image-gallery">
+                <img src="chapter1-1.jpg" alt="Chapter 1 - Image 1" class="gallery-img">
+                <img src="chapter1-2.jpg" alt="Chapter 1 - Image 2" class="gallery-img">
+                <img src="chapter1-3.jpg" alt="Chapter 1 - Image 3" class="gallery-img">
+                <img src="chapter1-4.jpg" alt="Chapter 1 - Image 4" class="gallery-img">
+                <img src="chapter1-5.jpg" alt="Chapter 1 - Image 5" class="gallery-img">
+            </div>
         </div>
         
         <div class="section" id="02-golden-memories">
@@ -283,7 +291,7 @@ button#enter-btn:hover {
             }
         });
 
-        /* كود تكبير الصور (Lightbox) */
+        /* كود تكبير الصور (Lightbox) لجميع الصور في الموقع تلقائياً */
         const galleryImages = document.querySelectorAll('.gallery-img');
         const lightbox = document.getElementById('lightbox');
         const lightboxImg = document.getElementById('lightbox-img');
@@ -301,4 +309,4 @@ button#enter-btn:hover {
         });
     </script>
 </body>
-</html>
+</html> 
